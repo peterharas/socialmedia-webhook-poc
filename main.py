@@ -2,7 +2,7 @@ import os
 import hmac
 import hashlib
 import json
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 
 # CODE ADAPTED AND CONVERT TO PYTHON USING COPILOT FROM: https://github.com/fbsamples/graph-api-webhooks-samples/blob/main/heroku/index.js
 
@@ -38,11 +38,21 @@ def verify_xhub_signature(app_secret: str, raw_body: bytes, signature_header: st
     return hmac.compare_digest(expected, received_sig)
 
 
-@app.route('/', methods=['GET'])
-def index():
+@app.route('/received', methods=['GET'])
+def received():
     """Render collected updates as pretty-printed JSON in <pre>."""
     body = '<pre>' + json.dumps(received_updates, indent=2, ensure_ascii=False) + '</pre>'
     return Response(body, mimetype='text/html')
+
+
+@app.route('/', methods=['GET'])
+def index():
+    render_template('privacy-policy.html')
+
+
+@app.route('/privacy', methods=['GET'])
+def privacy():
+    render_template('privacy-policy.html')
 
 
 # Verification endpoints (Facebook/Instagram/Threads) — same logic for all three
