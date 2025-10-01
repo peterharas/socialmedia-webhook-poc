@@ -52,7 +52,7 @@ def index():
 
 @app.route('/privacy', methods=['GET'])
 def privacy():
-    render_template('privacy-policy.html')
+    return render_template('privacy-policy.html')
 
 
 # Verification endpoints (Facebook/Instagram/Threads) — same logic for all three
