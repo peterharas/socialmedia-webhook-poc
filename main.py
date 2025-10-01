@@ -47,7 +47,7 @@ def received():
 
 @app.route('/', methods=['GET'])
 def index():
-    render_template('privacy-policy.html')
+    return render_template('privacy-policy.html')
 
 
 @app.route('/privacy', methods=['GET'])
